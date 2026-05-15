@@ -3,87 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instatrampo | Negócios</title>
+    <title>Instatrampo | Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #fafafa; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
         .insta-gradient { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
     </style>
 </head>
 <body class="pb-20">
 
     <!-- Header -->
-    <header class="bg-white border-b sticky top-0 z-50 h-14 flex items-center">
-        <div class="max-w-lg mx-auto w-full px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-serif italic font-bold tracking-tighter">Instatrampo</h1>
-            <div class="flex gap-4">
-                <svg onclick="abrirModal()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-            </div>
-        </div>
+    <header class="bg-white border-b sticky top-0 z-50 h-14 flex items-center justify-between px-4">
+        <h1 class="text-2xl font-serif italic font-bold tracking-tighter">Instatrampo</h1>
+        <svg onclick="abrirModal()" class="w-7 h-7 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
     </header>
 
     <!-- Feed -->
     <main id="feed" class="max-w-lg mx-auto">
-        <div class="p-10 text-center text-gray-400">Carregando oportunidades...</div>
+        <div class="p-10 text-center text-gray-400">Carregando feed profissional...</div>
     </main>
 
-    <!-- Menu Inferior -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t h-14 flex justify-around items-center z-50">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.099l7 4.508v13.303l-7-4.508-7 4.508v-13.303l7-4.508zm0-2.099l-9 5.8v16.2l9-5.8 9 5.8v-16.2l-9-5.8z"/></svg>
-        <div onclick="abrirModal()" class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold cursor-pointer">+</div>
-        <div class="w-7 h-7 bg-gray-300 rounded-full border border-gray-400"></div>
-    </nav>
-
     <!-- Modal Novo Post -->
-    <div id="modal" class="hidden fixed inset-0 bg-white z-[100] flex flex-col">
-        <div class="h-14 border-b flex items-center justify-between px-4">
-            <button onclick="abrirModal()" class="text-gray-500">Fechar</button>
-            <span class="font-bold">Anunciar Serviço</span>
+    <div id="modal" class="hidden fixed inset-0 bg-white z-[100] flex flex-col overflow-y-auto">
+        <div class="h-14 border-b flex items-center justify-between px-4 shrink-0">
+            <button onclick="abrirModal()" class="text-gray-500">Cancelar</button>
+            <span class="font-bold">Novo Trampo</span>
             <button id="btnPostar" class="text-blue-500 font-bold">Publicar</button>
         </div>
-        <div class="p-6 space-y-5 overflow-y-auto">
-            <div>
-                <label class="text-[10px] font-bold text-gray-400 uppercase">O que você faz?</label>
-                <input id="titulo" type="text" placeholder="Ex: Fotógrafo de Eventos" class="w-full border-b py-2 outline-none text-lg">
-            </div>
-            
-            <div>
-                <label class="text-[10px] font-bold text-gray-400 uppercase">Link da Imagem (Portfólio)</label>
-                <input id="fotoUrl" type="text" placeholder="Cole o link da foto aqui" class="w-full border-b py-2 outline-none">
-            </div>
 
-            <textarea id="desc" placeholder="Descreva seu serviço e experiência..." class="w-full bg-gray-50 p-3 rounded-xl outline-none resize-none h-24 border"></textarea>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase">Preço Médio (R$)</label>
-                    <input id="preco" type="text" placeholder="Ex: 150,00" class="w-full border-b py-2 outline-none">
+        <div class="p-6 space-y-6">
+            <!-- Upload de Imagem -->
+            <div id="area-upload" class="w-full aspect-square bg-gray-100 rounded-2xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center relative overflow-hidden">
+                <input type="file" id="inputFoto" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                <div id="preview-msg" class="text-center p-4">
+                    <p class="text-3xl mb-2 text-gray-400">📸</p>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Clique para escolher foto da galeria</p>
                 </div>
-                <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase">Seu WhatsApp</label>
-                    <input id="whatsapp" type="number" placeholder="DDD + Número" class="w-full border-b py-2 outline-none">
-                </div>
+                <img id="preview-img" class="hidden w-full h-full object-cover">
             </div>
 
-            <div class="flex gap-4">
-                <input id="autor" type="text" placeholder="Nome do Profissional" class="w-1/2 border-b py-2 outline-none">
-                <select id="nicho" class="w-1/2 border-b py-2 outline-none bg-white">
-                    <option value="Serviços">Categoria</option>
-                    <option value="Design">Design</option>
-                    <option value="Fotografia">Fotografia</option>
-                    <option value="Reformas">Reformas</option>
-                </select>
+            <div class="space-y-4">
+                <input id="titulo" type="text" placeholder="Título (Ex: Logo 3D Metálica)" class="w-full border-b py-2 outline-none">
+                <textarea id="desc" placeholder="Legenda/Descrição..." class="w-full border-b py-2 outline-none h-20 resize-none"></textarea>
+                <div class="grid grid-cols-2 gap-4">
+                    <input id="preco" type="text" placeholder="Preço (R$)" class="border-b py-2 outline-none">
+                    <input id="whatsapp" type="number" placeholder="WhatsApp (DDD)" class="border-b py-2 outline-none">
+                </div>
+                <div class="flex gap-4">
+                    <input id="autor" type="text" placeholder="Seu Nome" class="w-1/2 border-b py-2 outline-none">
+                    <select id="nicho" class="w-1/2 border-b py-2 outline-none bg-white">
+                        <option value="Serviços">Nicho</option>
+                        <option value="Design">Design</option>
+                        <option value="Fotografia">Fotografia</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // COLOQUE SUA CHAVE DO IMGBB AQUI ABAIXO!
+        const IMGBB_API_KEY = "98864ccd6c200976d5cbb63da2770f8f"; 
 
         const firebaseConfig = {
             apiKey: "AIzaSyBbYQMbJyOYKhpDyGZ8Bmt0AE1jgKBzDG8",
@@ -97,64 +82,81 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Preview da imagem selecionada
+        document.getElementById('inputFoto').onchange = e => {
+            const [file] = e.target.files;
+            if (file) {
+                document.getElementById('preview-img').src = URL.createObjectURL(file);
+                document.getElementById('preview-img').classList.remove('hidden');
+                document.getElementById('preview-msg').classList.add('hidden');
+            }
+        };
+
         window.abrirModal = () => document.getElementById('modal').classList.toggle('hidden');
 
         document.getElementById('btnPostar').onclick = async () => {
             const btn = document.getElementById('btnPostar');
-            btn.disabled = true;
-            btn.innerText = "...";
+            const fileInput = document.getElementById('inputFoto');
             
+            if (!fileInput.files[0]) return alert("Escolha uma foto!");
+            
+            btn.innerText = "Subindo...";
+            btn.disabled = true;
+
             try {
+                // 1. Upload para o ImgBB
+                const formData = new FormData();
+                formData.append("image", fileInput.files[0]);
+                
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                const urlFinal = data.data.url;
+
+                // 2. Salvar no Firebase
                 await addDoc(collection(db, "servicos"), {
                     titulo: document.getElementById('titulo').value,
                     nicho: document.getElementById('nicho').value,
                     descricao: document.getElementById('desc').value,
-                    foto: document.getElementById('fotoUrl').value,
+                    foto: urlFinal,
                     preco: document.getElementById('preco').value,
                     autor: document.getElementById('autor').value,
                     whatsapp: document.getElementById('whatsapp').value,
                     data: serverTimestamp()
                 });
-                abrirModal();
-                document.querySelectorAll('input, textarea').forEach(i => i.value = "");
-            } catch (e) { alert("Erro ao postar!"); }
-            btn.disabled = false;
-            btn.innerText = "Publicar";
+
+                location.reload(); // Recarrega para limpar tudo
+            } catch (e) { 
+                alert("Erro ao publicar!"); 
+                btn.disabled = false;
+            }
         };
 
+        // Renderização do Feed (Igual ao anterior)
         const q = query(collection(db, "servicos"), orderBy("data", "desc"));
         onSnapshot(q, (snapshot) => {
             const feed = document.getElementById('feed');
             feed.innerHTML = "";
             snapshot.forEach((doc) => {
                 const s = doc.data();
-                // Link do WhatsApp com mensagem automática
-                const zapLink = `https://api.whatsapp.com/send?phone=55${s.whatsapp}&text=Olá%20${s.autor},%20vi%20seu%20anúncio%20de%20${s.titulo}%20no%20Instatrampo.%20Podemos%20conversar?`;
+                const zapLink = `https://api.whatsapp.com/send?phone=55${s.whatsapp}&text=Olá%20${s.autor},%20vi%20seu%20anúncio%20no%20Instatrampo!`;
                 
                 feed.innerHTML += `
                     <article class="bg-white mb-4 border-b">
                         <div class="flex items-center p-3 gap-2">
                             <div class="w-8 h-8 rounded-full bg-gray-200 border"></div>
                             <span class="font-bold text-xs">${s.autor}</span>
-                            <span class="text-[10px] text-gray-400">• ${s.nicho}</span>
+                            <span class="text-[10px] text-gray-400 ml-auto">${s.nicho}</span>
                         </div>
-                        
-                        <img src="${s.foto || 'https://via.placeholder.com/500'}" class="w-full aspect-square object-cover bg-gray-50">
-                        
+                        <img src="${s.foto}" class="w-full aspect-square object-cover">
                         <div class="p-3">
-                            <div class="flex gap-4 mb-3">
-                                <a href="${zapLink}" target="_blank">
-                                    <svg class="w-6 h-6 hover:text-green-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                                </a>
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                            </div>
-                            
-                            <p class="text-sm mb-1"><span class="font-bold mr-2">${s.autor}</span>${s.titulo}</p>
-                            <p class="text-gray-500 text-xs mb-3">${s.descricao}</p>
-                            
-                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl">
-                                <span class="font-bold text-green-600">R$ ${s.preco}</span>
-                                <a href="${zapLink}" target="_blank" class="bg-black text-white px-4 py-1.5 rounded-lg text-xs font-bold">Combinar Serviço</a>
+                            <p class="text-sm"><span class="font-bold mr-2">${s.autor}</span>${s.titulo}</p>
+                            <p class="text-gray-500 text-xs mt-1">${s.descricao}</p>
+                            <div class="mt-4 flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="font-bold text-green-600 italic">R$ ${s.preco}</span>
+                                <a href="${zapLink}" target="_blank" class="bg-black text-white px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest">Combinar</a>
                             </div>
                         </div>
                     </article>
